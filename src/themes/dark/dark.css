@@ -1,0 +1,178 @@
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans);
+html, body, :global(#root) {
+  color: #ffffff;
+  height: 100%;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: Droid Sans;
+  background-color: #334455;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+a, button {
+  color: #ddeeff;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+}
+a, button:hover {
+  color: #eeffdd;
+}
+.App {
+  height: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: stretch;
+  justify-content: space-around;
+}
+.Header {
+  width: 100%;
+  text-align: left;
+}
+.HomeIcon {
+  display: none;
+}
+@media (max-width: 640px) {
+  .HomeIcon {
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    vertical-align: top;
+    background-color: #445566;
+  }
+  .HomeIcon:hover {
+    background-color: #556677;
+    cursor: pointer;
+  }
+  .HomeIcon:after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    border-top: 15px double #ddeeff;
+    border-bottom: 5px solid #ddeeff;
+  }
+  .HomeIcon:hover:after {
+    border-color: #eeffdd;
+  }
+}
+.Welcome {
+  display: inline-block;
+  padding: 8px;
+}
+.ThemeSelector {
+  float: right;
+}
+.ThemeName {
+  border: 0;
+  padding: 8px;
+  background-color: #445566;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.ThemeName:hover {
+  background-color: #556677;
+}
+.Entries {
+  flex: 2;
+  display: flex;
+  flex-flow: row wrap;
+}
+.EntryList {
+  width: 240px;
+  overflow: auto;
+}
+@media (max-width: 640px) {
+  .EntryListHasSelected {
+    width: 0;
+  }
+}
+.EntryName {
+  display: block;
+  padding: 8px;
+}
+.EntryName:hover {
+  background-color: #000000;
+}
+.EntryNameSelected {
+  background-color: #000000;
+}
+.EntryContents {
+  display: flex;
+  padding: 16px;
+  overflow: auto;
+  flex-grow: 1;
+  flex-direction: column;
+  background-color: #000000;
+}
+.EntryCreator {
+  display: flex;
+  padding: 16px;
+  overflow: auto;
+  flex-grow: 1;
+  flex-direction: column;
+  background-color: #000000;
+}
+.EntryCreatorInput {
+  flex: 1;
+  color: #ffffff;
+  border: 0px;
+  padding: 0px;
+  outline: none;
+  overflow: auto;
+  font-size: 14px;
+  background-color: #000000;
+}
+.EntryEditor {
+  display: flex;
+  padding: 16px;
+  overflow: auto;
+  flex-grow: 1;
+  flex-direction: column;
+  background-color: #000000;
+}
+.EntryEditorInput {
+  flex: 1;
+  color: #ffffff;
+  border: 0px;
+  padding: 0px;
+  outline: none;
+  overflow: auto;
+  font-size: 14px;
+  background-color: #000000;
+}
+.SaveButton {
+  color: #001122;
+  border: 0px;
+  padding: 8px;
+  font-size: 14px;
+  min-height: 34px;
+  margin-top: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  background-color: #ddeeff;
+}
+.SaveButton:hover {
+  color: #113322;
+  background-color: #eeffdd;
+}
+.EditButton {
+  color: #001122;
+  border: 0px;
+  padding: 8px;
+  font-size: 14px;
+  min-height: 34px;
+  margin-top: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  background-color: #ddeeff;
+}
+.EditButton:hover {
+  color: #113322;
+  background-color: #eeffdd;
+}
