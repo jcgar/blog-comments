@@ -35,7 +35,7 @@
     "provide-theme": "^0.3.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "react-redux-provide": "^5.2.0",
+    "react-redux-provide": "^5.2.1",
     "react-remarkable": "^1.1.1",
     "redux-replicate": "^0.3.0",
     "redux-replicate-fs": "^0.3.0",

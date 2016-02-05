@@ -1,7 +1,7 @@
 import './polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import { unshiftEnhancer } from 'react-redux-provide';
+import { unshiftEnhancer, reloadProviders } from 'react-redux-provide';
 import replicate from 'redux-replicate';
 import localforageReplicator from 'redux-replicate-localforage';
 import providers from './providers/index';
@@ -26,3 +26,15 @@ export default function renderApp(props, element = getRootElement()) {
 }
 
 renderApp({ ...defaultProps, providedState });
+
+if (process.env.NODE_ENV !== 'production') {
+  if (module.hot) {
+    module.hot.accept([
+      './defaultProps',
+      './providers/index',
+      './providers/entries'
+    ], () => {
+      reloadProviders(require('./defaultProps').default);
+    });
+  }
+}
