@@ -9,16 +9,16 @@ import App from './components/App';
 import defaultProps from './defaultProps';
 
 const { theme, page, entries } = providers;
-const themeReplicator = replicate(
+
+unshiftEnhancer({ theme }, replicate(
   'data/theme', fsReplicator({ themeName: true })
-);
-const entriesReplicator = replicate(
+));
+unshiftEnhancer({ page, entries }, replicate(
   'data/entries', fsReplicator({ entries: true })
-);
+));
 
-unshiftEnhancer({ theme }, themeReplicator);
-unshiftEnhancer({ page, entries }, entriesReplicator);
-
-export default function renderAppToString(props = defaultProps) {
+function renderAppToString(props = defaultProps) {
   return renderToString(<App { ...props } />);
 }
+
+export default renderAppToString;

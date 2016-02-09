@@ -1,10 +1,12 @@
 import 'babel-polyfill';
 
 /**
- * Ensure Babel's implementations are used.  It'd be nice to not have to do
- * this, but libraries compiled by Babel seem to use its implementation while
- * say for example, `React.PropTypes.instanceOf(Map)` seems to use the native
- * global implementation, causing a prop validation error.  This fixes that.
+ * This seems to be the easiest way to ensure the `core-js` implementations are
+ * used globally.  It'd be nice to not have to do this, but for some reason
+ * `core-js/shim` doesn't get applied to dependencies.  So for example, the
+ * `provide-map` package ends up using the native `Map` implementation
+ * internally (if it exists), while `React.PropTypes.instanceOf(Map)` uses the
+ * polyfill, causing a prop validation error.  This fixes that.
  */
 if (typeof window !== 'undefined') {
   window.Map = Map;

@@ -6,12 +6,10 @@ import {
 
 const entries = provideMap('entries', 'entry', 'entryKey');
 
+const { SET_ENTRY, UPDATE_ENTRY, DELETE_ENTRY } = entries;
 const SELECT_ENTRY = 'SELECT_ENTRY';
 const CREATE_ENTRY = 'CREATE_ENTRY';
 const EDIT_ENTRY = 'EDIT_ENTRY';
-const SET_ENTRY = 'SET_ENTRY';
-const UPDATE_ENTRY = 'UPDATE_ENTRY';
-const DELETE_ENTRY = 'DELETE_ENTRY';
 
 function normalizeEntry (entry) {
   const { contents = '' } = entry;

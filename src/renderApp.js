@@ -8,31 +8,32 @@ import providers from './providers/index';
 import App from './components/App';
 import defaultProps from './defaultProps';
 
-const getRootElement = () => document.getElementById('root');
-const providedState = window.clientState;
 const { theme, page, entries } = providers;
-const themeReplicator = replicate(
+
+unshiftEnhancer({ theme }, replicate(
   'theme', localforageReplicator({ themeName: true })
-);
-const entriesReplicator = replicate(
+));
+unshiftEnhancer({ page, entries }, replicate(
   'entries', localforageReplicator({ entries: true })
-);
+));
 
-unshiftEnhancer({ theme }, themeReplicator);
-unshiftEnhancer({ page, entries }, entriesReplicator);
-
-export default function renderApp(props, element = getRootElement()) {
+function renderApp(props, element = document.getElementById('root')) {
   return render(<App { ...props } />, element);
 }
 
-renderApp({ ...defaultProps, providedState });
+renderApp({ ...defaultProps, providedState: window.clientState });
+
+export default renderApp;
 
 if (process.env.NODE_ENV !== 'production') {
   if (module.hot) {
     module.hot.accept([
       './defaultProps',
       './providers/index',
-      './providers/entries'
+      './providers/entries',
+      './themes/files',
+      './themes/dark/dark.css',
+      './themes/light/light.css'
     ], () => {
       reloadProviders(require('./defaultProps').default);
     });
