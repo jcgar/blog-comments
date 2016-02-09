@@ -1,6 +1,6 @@
 {
   "name": "bloggur",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Simple blog app demonstrating server rendering and routes using `react-redux-provide`.",
   "main": "lib/index.js",
   "scripts": {
