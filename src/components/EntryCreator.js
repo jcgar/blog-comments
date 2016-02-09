@@ -27,7 +27,7 @@ export default class EntryCreator extends Component {
     ].join('\n');
   }
 
-  setEntry(event, formData) {
+  setEntry = (event, formData) => {
     if (!formData || !formData.contents) {
       return;
     }
@@ -35,7 +35,7 @@ export default class EntryCreator extends Component {
     const { entry } = this.props.setEntry(null, formData);
 
     this.props.pushWindowPath(`/${entry.href}`);
-  }
+  };
 
   render() {
     const { classes, formId } = this.props;
@@ -44,7 +44,7 @@ export default class EntryCreator extends Component {
       <Form
         formId={formId}
         className={classes.EntryCreator}
-        onSubmit={::this.setEntry}
+        onSubmit={this.setEntry}
       >
         <textarea
           className={classes.EntryCreatorInput}

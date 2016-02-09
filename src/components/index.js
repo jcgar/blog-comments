@@ -6,7 +6,6 @@ import EntryEditor from './EntryEditor';
 import EntryList from './EntryList';
 import EntryName from './EntryName';
 import Header from './Header';
-import { Link } from 'provide-page';
 
 export default {
   App,
@@ -16,6 +15,5 @@ export default {
   EntryEditor,
   EntryList,
   EntryName,
-  Header,
-  Link
+  Header
 };

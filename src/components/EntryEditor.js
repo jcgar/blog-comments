@@ -19,7 +19,7 @@ export default class EntryEditor extends Component {
     formId: 'EntryEditor'
   };
 
-  updateEntry(event, formData) {
+  updateEntry = (event, formData) => {
     if (!formData) {
       return;
     }
@@ -40,7 +40,7 @@ export default class EntryEditor extends Component {
     }
 
     this.props.pushWindowPath(`/${href}`);
-  }
+  };
 
   render() {
     const { classes, formId, selectedEntry } = this.props;
@@ -49,7 +49,7 @@ export default class EntryEditor extends Component {
       <Form
         formId={formId}
         className={classes.EntryEditor}
-        onSubmit={::this.updateEntry}
+        onSubmit={this.updateEntry}
       >
         <textarea
           className={classes.EntryEditorInput}

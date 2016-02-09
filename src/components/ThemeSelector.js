@@ -16,14 +16,14 @@ export default class ThemeSelector extends Component {
     formId: 'ThemeSelector'
   };
 
-  loadNextTheme(event) {
+  loadNextTheme = (event, formData) => {
     const { themesFiles, themeName, loadTheme } = this.props;
     const themeNames = Object.keys(themesFiles);
     const themeIndex = themeNames.indexOf(themeName);
     const nextThemeName = themeNames[themeIndex + 1] || themeNames[0];
 
     loadTheme(nextThemeName, themesFiles[nextThemeName]);
-  }
+  };
 
   render() {
     const { classes, themeName, formId } = this.props;
@@ -32,7 +32,7 @@ export default class ThemeSelector extends Component {
       <Form
         formId={formId}
         className={classes.ThemeSelector}
-        onSubmit={::this.loadNextTheme}
+        onSubmit={this.loadNextTheme}
       >
         <button className={classes.ThemeName} type="submit">
           {themeName}

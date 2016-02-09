@@ -30,10 +30,7 @@ if (process.env.NODE_ENV !== 'production') {
     module.hot.accept([
       './defaultProps',
       './providers/index',
-      './providers/entries',
-      './themes/files',
-      './themes/dark/dark.css',
-      './themes/light/light.css'
+      './providers/entries'
     ], () => {
       reloadProviders(require('./defaultProps').default);
     });
