@@ -23,21 +23,31 @@ export default class EntryContents extends Component {
     const { creatingEntry, deletedEntry, editingEntry } = props;
     const { setDocumentTitle, setStatusCode } = props;
 
-    if (creatingEntry) {
-      setDocumentTitle('Create blog entry');
-    } else if (deletedEntry) {
-      setDocumentTitle('Deleted entry');
-    } else if (selectedEntry) {
-      if (editingEntry) {
+    switch (true) {
+      case creatingEntry > 0:
+        setDocumentTitle('Create blog entry');
+        break;
+
+      case deletedEntry:
+        setDocumentTitle('Deleted entry');
+        break;
+
+      case selectedEntry !== null && editingEntry:
         setDocumentTitle(`${selectedEntry.name} - edit`);
-      } else {
+        break;
+
+      case selectedEntry !== null:
         setDocumentTitle(selectedEntry.name);
-      }
-    } else if (selectedEntryKey) {
-      setDocumentTitle('Not found');
-      setStatusCode(404);
-    } else {
-      setDocumentTitle('Bloggur');
+        break;
+
+      case selectedEntryKey !== null:
+        setDocumentTitle('Not found');
+        setStatusCode(404);
+        break;
+
+      default:
+        setDocumentTitle('Bloggur');
+        break;
     }
   }
 
@@ -54,49 +64,47 @@ export default class EntryContents extends Component {
     const { selectedEntryKey, selectedEntry } = this.props;
     const { creatingEntry, deletedEntry, editingEntry } = this.props;
 
-    if (creatingEntry) {
-      return (
-        <EntryCreator/>
-      );
-    }
+    switch (true) {
+      case creatingEntry > 0:
+        return (
+          <EntryCreator/>
+        );
 
-    if (deletedEntry) {
-      return (
-        <div className={classes.EntryContents}>
-          Deleted entry!
-        </div>
-      );
-    }
+      case deletedEntry:
+        return (
+          <div className={classes.EntryContents}>
+            Deleted entry!
+          </div>
+        );
 
-    if (selectedEntry) {
-      if (editingEntry) {
+      case selectedEntry !== null && editingEntry:
         return (
           <EntryEditor/>
         );
-      }
 
-      return (
-        <div className={classes.EntryContents}>
-          <Markdown source={selectedEntry.contents} />
+      case selectedEntry !== null:
+        return (
+          <div className={classes.EntryContents}>
+            <Markdown source={selectedEntry.contents} />
 
-          <Link
-            className={classes.EditButton}
-            href={`/${selectedEntry.href}/edit`}
-          >
-            Edit
-          </Link>
-        </div>
-      );
+            <Link
+              className={classes.EditButton}
+              href={`/${selectedEntry.href}/edit`}
+            >
+              Edit
+            </Link>
+          </div>
+        );
+
+      case selectedEntryKey !== null:
+        return (
+          <div className={classes.EntryContents}>
+            Not found!
+          </div>
+        );
+
+      default:
+        return null;
     }
-
-    if (selectedEntryKey) {
-      return (
-        <div className={classes.EntryContents}>
-          Not found!
-        </div>
-      );
-    }
-
-    return null;
   }
 }

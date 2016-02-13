@@ -1,8 +1,5 @@
 import provideMap from 'provide-map';
-import {
-  PUSH_WINDOW_PATH,
-  REPLACE_WINDOW_PATH
-} from 'provide-page';
+import { PUSH_WINDOW_PATH, REPLACE_WINDOW_PATH } from 'provide-page';
 
 const entries = provideMap('entries', 'entry', 'entryKey');
 
@@ -56,11 +53,11 @@ entries.reducers.selectedEntryKey = (state = null, action) => {
       return null;
 
     case SELECT_ENTRY:
-      return action.entryKey;
+      return action.entryKey || null;
 
     case PUSH_WINDOW_PATH:
     case REPLACE_WINDOW_PATH:
-      return action.windowPathSplit[0];
+      return action.windowPathSplit[0] || null;
 
     default:
       return state;
@@ -111,7 +108,7 @@ entries.merge = function merge (stateProps, dispatchProps, parentProps) {
 
   return {
     ...merged,
-    selectedEntry: entries && entries.get(selectedEntryKey),
+    selectedEntry: entries && entries.get(selectedEntryKey) || null,
     isSelectedEntry: merged.entryKey === selectedEntryKey
   };
 }
