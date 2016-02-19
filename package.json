@@ -15,8 +15,23 @@
     "test:cov": "babel-node ./node_modules/isparta/bin/isparta cover ./node_modules/mocha/bin/_mocha -- --recursive",
     "start": "npm run build && npm run server",
     "start:dev": "npm run server:dev",
-    "server": "NODE_ENV=production MIN_EXT=.min node server.production.js",
-    "server:dev": "NODE_ENV=development node server.development.js"
+    "server": "better-npm-run server",
+    "server:dev": "better-npm-run server:dev"
+  },
+  "betterScripts": {
+    "server": {
+      "command": "node server.production.js",
+      "env": {
+        "NODE_ENV": "production",
+        "MIN_EXT": ".min"
+      }
+    },
+    "server:dev": {
+      "command": "node server.development.js",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
   },
   "repository": {
     "type": "git",
@@ -54,6 +69,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.5.0",
     "babel-runtime": "^6.3.19",
+    "better-npm-run": "0.0.7",
     "body-parser": "^1.14.2",
     "chokidar": "^1.4.2",
     "css-loader": "^0.23.1",
