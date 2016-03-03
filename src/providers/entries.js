@@ -8,7 +8,7 @@ const SELECT_ENTRY = 'SELECT_ENTRY';
 const CREATE_ENTRY = 'CREATE_ENTRY';
 const EDIT_ENTRY = 'EDIT_ENTRY';
 
-function normalizeEntry (entry) {
+function normalizeEntry(entry) {
   const { contents = '' } = entry;
 
   const name = entry.name || contents
@@ -26,83 +26,94 @@ function normalizeEntry (entry) {
   return { ...entry, name, href };
 }
 
-entries.actions.selectEntry = (entryKey) => (
-  { type: SELECT_ENTRY, entryKey }
-);
-entries.actions.createEntry = () => (
-  { type: CREATE_ENTRY }
-);
-entries.actions.editEntry = () => (
-  { type: EDIT_ENTRY }
-);
-entries.actions.setEntry = (entryKey, entry) => {
-  entry = normalizeEntry(entry);
-  entryKey = entryKey || entry.href;
-  return { type: SET_ENTRY, entryKey, entry };
-};
-entries.actions.updateEntry = (entryKey, entry) => {
-  entry = normalizeEntry(entry);
-  entryKey = entryKey || entry.href;
-  return { type: UPDATE_ENTRY, entryKey, entry };
-};
+Object.assign(entries.actions, {
+  selectEntry(entryKey) {
+    return { type: SELECT_ENTRY, entryKey };
+  },
 
-entries.reducers.selectedEntryKey = (state = null, action) => {
-  switch (action.type) {
-    case CREATE_ENTRY:
-    case DELETE_ENTRY:
-      return null;
+  createEntry() {
+    return { type: CREATE_ENTRY };
+  },
 
-    case SELECT_ENTRY:
-      return action.entryKey || null;
+  editEntry() {
+    return { type: EDIT_ENTRY };
+  },
 
-    case PUSH_WINDOW_PATH:
-    case REPLACE_WINDOW_PATH:
-      return action.windowPathSplit[0] || null;
+  setEntry(entryKey, entry) {
+    entry = normalizeEntry(entry);
+    entryKey = entryKey || entry.href;
+    return { type: SET_ENTRY, entryKey, entry };
+  },
 
-    default:
-      return state;
+  updateEntry(entryKey, entry) {
+    entry = normalizeEntry(entry);
+    entryKey = entryKey || entry.href;
+    return { type: UPDATE_ENTRY, entryKey, entry };
   }
-};
-entries.reducers.creatingEntry = (state = 0, action) => {
-  switch (action.type) {
-    case CREATE_ENTRY:
-      return state || new Date().getTime();
+});
 
-    case PUSH_WINDOW_PATH:
-    case REPLACE_WINDOW_PATH:
-      return action.windowPathSplit[0] === 'create'
-        ? state || new Date().getTime()
-        : 0;
+Object.assign(entries.reducers, {
+  selectedEntryKey(state = null, action) {
+    switch (action.type) {
+      case CREATE_ENTRY:
+      case DELETE_ENTRY:
+        return null;
 
-    default:
-      return state;
+      case SELECT_ENTRY:
+        return action.entryKey || null;
+
+      case PUSH_WINDOW_PATH:
+      case REPLACE_WINDOW_PATH:
+        return action.windowPathSplit[0] || null;
+
+      default:
+        return state;
+    }
+  },
+
+  creatingEntry(state = 0, action) {
+    switch (action.type) {
+      case CREATE_ENTRY:
+        return state || new Date().getTime();
+
+      case PUSH_WINDOW_PATH:
+      case REPLACE_WINDOW_PATH:
+        return action.windowPathSplit[0] === 'create'
+          ? state || new Date().getTime()
+          : 0;
+
+      default:
+        return state;
+    }
+  },
+
+  editingEntry(state = false, action) {
+    switch (action.type) {
+      case EDIT_ENTRY:
+        return true;
+
+      case PUSH_WINDOW_PATH:
+      case REPLACE_WINDOW_PATH:
+        return action.windowPathSplit[1] === 'edit';
+
+      default:
+        return state;
+    }
+  },
+
+  deletedEntry(state = false, action) {
+    switch (action.type) {
+      case DELETE_ENTRY:
+        return true;
+
+      default:
+        return false;
+    }
   }
-};
-entries.reducers.editingEntry = (state = false, action) => {
-  switch (action.type) {
-    case EDIT_ENTRY:
-      return true;
-
-    case PUSH_WINDOW_PATH:
-    case REPLACE_WINDOW_PATH:
-      return action.windowPathSplit[1] === 'edit';
-
-    default:
-      return state;
-  }
-};
-entries.reducers.deletedEntry = (state = false, action) => {
-  switch (action.type) {
-    case DELETE_ENTRY:
-      return true;
-
-    default:
-      return false;
-  }
-};
+});
 
 const entriesMerge = entries.merge;
-entries.merge = function merge (stateProps, dispatchProps, parentProps) {
+entries.merge = function merge(stateProps, dispatchProps, parentProps) {
   const merged = entriesMerge(stateProps, dispatchProps, parentProps);
   const { entries, selectedEntryKey } = merged;
 

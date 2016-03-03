@@ -22,33 +22,34 @@ export default class EntryContents extends Component {
     const { selectedEntryKey, selectedEntry } = props;
     const { creatingEntry, deletedEntry, editingEntry } = props;
     const { setDocumentTitle, setStatusCode } = props;
+    let documentTitle = 'Bloggur';
+    let statusCode = null;
 
     switch (true) {
       case creatingEntry > 0:
-        setDocumentTitle('Create blog entry');
+        documentTitle = 'Create blog entry';
         break;
 
       case deletedEntry:
-        setDocumentTitle('Deleted entry');
+        documentTitle = 'Deleted entry';
         break;
 
       case selectedEntry !== null && editingEntry:
-        setDocumentTitle(`${selectedEntry.name} - edit`);
+        documentTitle = `${selectedEntry.name} - edit`;
         break;
 
       case selectedEntry !== null:
-        setDocumentTitle(selectedEntry.name);
+        documentTitle = selectedEntry.name;
         break;
 
       case selectedEntryKey !== null:
-        setDocumentTitle('Not found');
-        setStatusCode(404);
-        break;
-
-      default:
-        setDocumentTitle('Bloggur');
+        documentTitle = 'Not found';
+        statusCode = 404;
         break;
     }
+
+    setDocumentTitle(documentTitle);
+    setStatusCode(statusCode);
   }
 
   componentWillMount() {

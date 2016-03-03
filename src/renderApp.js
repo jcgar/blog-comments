@@ -14,7 +14,13 @@ unshiftEnhancer({ theme }, replicate(
   'theme', localforageReplicator({ themeName: true })
 ));
 unshiftEnhancer({ page, entries }, replicate(
-  'entries', localforageReplicator({ entries: true })
+  'entries', localforageReplicator((storeKey, state, action) => {
+    const { entries, selectedEntryKey } = state;
+
+    return {
+      [selectedEntryKey]: entries && entries.get(selectedEntryKey)
+    };
+  })
 ));
 
 function renderApp(props, element = document.getElementById('root')) {

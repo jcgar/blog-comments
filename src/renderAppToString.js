@@ -14,7 +14,13 @@ unshiftEnhancer({ theme }, replicate(
   'data/theme', fsReplicator({ themeName: true })
 ));
 unshiftEnhancer({ page, entries }, replicate(
-  'data/entries', fsReplicator({ entries: true })
+  'data/entries', fsReplicator((storeKey, state, action) => {
+    const { entries, selectedEntryKey } = state;
+
+    return {
+      [selectedEntryKey]: entries && entries.get(selectedEntryKey)
+    };
+  })
 ));
 
 function renderAppToString(props = defaultProps) {
