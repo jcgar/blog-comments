@@ -6,7 +6,7 @@ const UserWelcome = ({ classes, userId, userName, destroySession }) => {
   const logOut = () => destroySession();
 
   const UserLink = (
-    <Link className={classes.UserLink} to={`/user/${userName}`}>
+    <Link className={classes.UserLink} to={`/${userName}`}>
       {userName}
     </Link>
   );

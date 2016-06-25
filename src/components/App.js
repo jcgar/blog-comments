@@ -18,7 +18,7 @@ const App = () => (
     <Route path="/" component={Bloggur}>
       <IndexRoute component={Home} />
 
-      <Route path="user" component={UserProfile}>
+      <Route component={UserProfile}>
         <Route path=":userName" />
       </Route>
     </Route>

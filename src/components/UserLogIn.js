@@ -16,7 +16,7 @@ const UserLogIn = ({
   const logIn = (event, formData) => {
     const updateUserSession = ({ userId, userName }) => {
       updateSession({ userId, userName });
-      replaceRoute(`/user/${userName}`);
+      replaceRoute(`/${userName}`);
     };
 
     if (isSigningUp(formData)) {
