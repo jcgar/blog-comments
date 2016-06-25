@@ -63,6 +63,7 @@
   "homepage": "https://github.com/loggur/bloggur#readme",
   "dependencies": {
     "bcrypt": "^0.8.6",
+    "provide-crud": "^1.0.0-rc.7",
     "provide-id-gen": "^1.0.0-0",
     "provide-page": "^1.0.0-0",
     "provide-router": "^1.0.0-0",
