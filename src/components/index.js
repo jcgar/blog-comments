@@ -1,6 +1,6 @@
 export Header from './Header';
 export Home from './Home';
-export Lumbur from './Lumbur';
+export Bloggur from './Bloggur';
 export NotFound from './NotFound';
 export ThemeSelector from './ThemeSelector';
 export UserLogIn from './UserLogIn';

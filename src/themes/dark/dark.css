@@ -73,7 +73,7 @@ button:hover {
   border-color: inputFocusBorderColor;
   background-color: inputFocusBackgroundColor;
 }
-.Lumbur {
+.Bloggur {
   height: 100%;
   display: flex;
   flex-flow: column nowrap;

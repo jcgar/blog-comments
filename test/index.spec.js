@@ -8,10 +8,10 @@ import defaultProps from '../src/defaultProps';
 
 const appInstance = renderTest(App, defaultProps);
 
-describe('Lumbur', () => {
+describe('Bloggur', () => {
   it('should render correctly', () => {
     // NOTE: use the page provider within some component then uncomment this
-    // expect(document.title).toBe('Lumbur');
+    // expect(document.title).toBe('Bloggur');
     expect(appInstance.node.tagName).toBe('DIV');
     expect(typeof appInstance.node.className).toBe('string');
   });

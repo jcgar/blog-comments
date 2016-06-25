@@ -1,10 +1,9 @@
 {
-  "name": "lumbur",
-  "version": "1.0.0-rc.20",
-  "description": "Boilerplate w/ generator for building universal, extendable, and reusable React applications with `react-redux-provide`.",
+  "name": "bloggur",
+  "version": "1.0.0-alpha.1",
+  "description": "A simple blog application built with `react-redux-provide`. Demonstrates truly universal rendering with replication and queries.",
   "main": "lib/index.js",
   "scripts": {
-    "postinstall": "lumburjack",
     "build:lib": "babel src --out-dir lib",
     "build:umd": "webpack src/index.js --config webpack.config.development.js",
     "build:umd:min": "webpack src/index.js --config webpack.config.production.js",
@@ -42,7 +41,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/loggur/lumbur.git"
+    "url": "git+https://github.com/loggur/bloggur.git"
   },
   "keywords": [
     "react",
@@ -59,9 +58,9 @@
   "author": "timbur",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/loggur/lumbur/issues"
+    "url": "https://github.com/loggur/bloggur/issues"
   },
-  "homepage": "https://github.com/loggur/lumbur#readme",
+  "homepage": "https://github.com/loggur/bloggur#readme",
   "dependencies": {
     "bcrypt": "^0.8.6",
     "provide-id-gen": "^1.0.0-0",
@@ -101,7 +100,6 @@
     "isparta": "^4.0.0",
     "istanbul": "^0.4.2",
     "jsdom": "^8.0.2",
-    "lumburjack": "^1.0.0-0",
     "mocha": "^2.4.5",
     "postcss": "^5.0.14",
     "postcss-loader": "^0.8.0",

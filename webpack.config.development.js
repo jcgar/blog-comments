@@ -8,7 +8,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: {
-    Lumbur: [
+    Bloggur: [
       'webpack-hot-middleware/client',
       'babel-polyfill',
       './src/renderApp.js'

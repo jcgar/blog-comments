@@ -13,9 +13,9 @@ export default {
       ...providers.page,
 
       state: {
-        documentTitle: 'Lumbur',
-        metaDescription: 'Boilerplate w/ generator for building universal, extendable, and reusable React applications with `react-redux-provide`.',
-        jsFiles: [`/dist/Lumbur${min}.js`]
+        documentTitle: 'Bloggur',
+        metaDescription: 'A simple blog application built with `react-redux-provide`. Demonstrates truly universal rendering with replication and queries.',
+        jsFiles: [`/dist/Bloggur${min}.js`]
       }
     },
 

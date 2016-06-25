@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import Header from './Header';
 
-const Lumbur = ({ classes, children }) => (
-  <div className={classes.Lumbur}>
+const Bloggur = ({ classes, children }) => (
+  <div className={classes.Bloggur}>
     <Header/>
 
     <div className={classes.Body}>
@@ -11,8 +11,8 @@ const Lumbur = ({ classes, children }) => (
   </div>
 );
 
-Lumbur.propTypes = {
+Bloggur.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default Lumbur;
+export default Bloggur;

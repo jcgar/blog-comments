@@ -4,7 +4,7 @@ import { paramsToProps } from 'provide-router';
 import * as components from './index';
 
 const {
-  Lumbur,
+  Bloggur,
   Home,
   UserLogIn,
   UserProfile,
@@ -15,7 +15,7 @@ const App = () => (
   <Router createElement={paramsToProps}>
     <Route path="/login" component={UserLogIn} />
 
-    <Route path="/" component={Lumbur}>
+    <Route path="/" component={Bloggur}>
       <IndexRoute component={Home} />
 
       <Route path="user" component={UserProfile}>

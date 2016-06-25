@@ -7,7 +7,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    Lumbur: [
+    Bloggur: [
       'babel-polyfill',
       './src/renderApp.js'
     ],
