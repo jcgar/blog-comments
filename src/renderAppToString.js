@@ -1,27 +1,21 @@
-import './polyfill';
+import 'react-redux-provide/lib/install';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { unshiftEnhancer } from 'react-redux-provide';
-import replicate from 'redux-replicate';
-import fsReplicator from 'redux-replicate-fs';
-import providers from './providers/index';
+import { pushReplicator } from 'react-redux-provide';
+import fs from 'redux-replicate-fs';
 import App from './components/App';
 import defaultProps from './defaultProps';
+import bcrypt from 'bcrypt';
 
-const { theme, page, entries } = providers;
+const { providers } = defaultProps;
+const min = process.env.MIN_EXT || '';
+const themes = require(`./themes/index${min}`);
 
-unshiftEnhancer({ theme }, replicate(
-  'data/theme', fsReplicator({ themeName: true })
-));
-unshiftEnhancer({ page, entries }, replicate(
-  'data/entries', fsReplicator((storeKey, state, action) => {
-    const { entries, selectedEntryKey } = state;
+providers.theme.state.themes = themes;
+providers.user.state = { userPasswordHasher: bcrypt };
 
-    return {
-      [selectedEntryKey]: entries && entries.get(selectedEntryKey)
-    };
-  })
-));
+// NOTE: you might want to use different replicator(s) here, if any
+pushReplicator(providers, fs);
 
 function renderAppToString(props = defaultProps) {
   return renderToString(<App { ...props } />);

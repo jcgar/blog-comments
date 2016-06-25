@@ -1,44 +1,47 @@
-import './polyfill';
+import 'react-redux-provide/lib/install';
 import React from 'react';
 import { render } from 'react-dom';
-import { unshiftEnhancer, reloadProviders } from 'react-redux-provide';
-import replicate from 'redux-replicate';
-import localforageReplicator from 'redux-replicate-localforage';
-import providers from './providers/index';
-import App from './components/App';
+import { pushReplicator } from 'react-redux-provide';
+import { reloadFunctions, reloadProviders } from 'react-redux-provide';
+import memory from 'redux-replicate-memory';
+import App, { components } from './components/App';
 import defaultProps from './defaultProps';
+import provideRouter from 'provide-router';
+import { browserHistory } from 'react-router';
 
-const { theme, page, entries } = providers;
+const { providers } = defaultProps;
+const router = provideRouter(browserHistory);
 
-unshiftEnhancer({ theme }, replicate(
-  'theme', localforageReplicator({ themeName: true })
-));
-unshiftEnhancer({ page, entries }, replicate(
-  'entries', localforageReplicator((storeKey, state, action) => {
-    const { entries, selectedEntryKey } = state;
+providers.router = router;
 
-    return {
-      [selectedEntryKey]: entries && entries.get(selectedEntryKey)
-    };
-  })
-));
+// NOTE: you might want to use different replicator(s) here, if any
+pushReplicator(providers, memory);
 
 function renderApp(props, element = document.getElementById('root')) {
   return render(<App { ...props } />, element);
 }
 
-renderApp({ ...defaultProps, providedState: window.clientState });
+renderApp(defaultProps);
 
 export default renderApp;
 
 if (process.env.NODE_ENV !== 'production') {
   if (module.hot) {
-    module.hot.accept([
-      './defaultProps',
-      './providers/index',
-      './providers/entries'
-    ], () => {
-      reloadProviders(require('./defaultProps').default);
+    let oldFunctions = components;
+
+    module.hot.accept('./components/App', () => {
+      const newFunctions = require('./components/App').components;
+
+      reloadFunctions(oldFunctions, newFunctions);
+      oldFunctions = newFunctions;
+    });
+
+    module.hot.accept('./defaultProps', () => {
+      const providers = require('./defaultProps').default.providers;
+
+      providers.router = router;
+
+      reloadProviders(providers);
     });
   }
 }

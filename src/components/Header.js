@@ -1,33 +1,17 @@
-import React, { Component, PropTypes } from 'react';
-import provide from 'react-redux-provide';
-import { Link } from 'provide-page';
+import React, { PropTypes } from 'react';
+import UserWelcome from './UserWelcome';
 import ThemeSelector from './ThemeSelector';
 
-@provide
-export default class Header extends Component {
-  static propTypes = {
-    classes: PropTypes.object.isRequired,
-    selectedEntryKey: PropTypes.string
-  };
+const Header = ({ classes, requestSession }) => (
+  <div className={classes.Header}>
+    <UserWelcome userId={requestSession.userId} />
+    <ThemeSelector/>
+  </div>
+);
 
-  render() {
-    const { classes, selectedEntryKey } = this.props;
-    let homeIconClassName = classes.HomeIcon;
+Header.propTypes = {
+  classes: PropTypes.object.isRequired,
+  requestSession: PropTypes.object.isRequired
+};
 
-    if (selectedEntryKey) {
-      homeIconClassName += ' ' + classes.HomeIconHasSelected;
-    }
-
-    return (
-      <div className={classes.Header}>
-        <Link className={homeIconClassName} href="/" />
-
-        <span className={classes.Welcome}>
-          Welcome!
-        </span>
-
-        <ThemeSelector/>
-      </div>
-    );
-  }
-}
+export default Header;

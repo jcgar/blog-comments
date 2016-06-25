@@ -1,9 +1,3 @@
-import components from './components/index';
-import providers from './providers/index';
-import defaultProps from './defaultProps';
-
-export default {
-  components,
-  providers,
-  defaultProps
-};
+export * as components from './components/index';
+export * as providers from './providers/index';
+export defaultProps from './defaultProps';

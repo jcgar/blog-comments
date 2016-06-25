@@ -8,12 +8,19 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: {
-    Bloggur: [
+    Lumbur: [
       'webpack-hot-middleware/client',
+      'babel-polyfill',
       './src/renderApp.js'
     ],
-    DarkTheme: './src/themes/dark/index.js',
-    LightTheme: './src/themes/light/index.js'
+    DarkTheme: [
+      'webpack-hot-middleware/client',
+      './src/themes/dark/dark.js'
+    ],
+    LightTheme: [
+      'webpack-hot-middleware/client',
+      './src/themes/light/light.js'
+    ]
   },
   resolve: {
     extensions: ['', '.js']
@@ -39,24 +46,24 @@ module.exports = {
     new ExtractTextPlugin('[name].css')
   ],
   module: {
+    noParse: /dist\/localforage(|\.min).js/,
     loaders: [
       {
         test: /\.js$/,
-        loaders: [
-          'babel?'+JSON.stringify({
-            plugins: [
-              ['react-transform', {
-                transforms: [{
-                  transform: 'react-transform-hmr',
-                  imports: ['react'],
-                  locals: ['module']
-                }]
+        loaders: ['babel?'+JSON.stringify({
+          plugins: [
+            ['react-transform', {
+              transforms: [{
+                transform: 'react-transform-hmr',
+                imports: ['react'],
+                locals:  ['module']
               }]
-            ]
-          })
-        ],
-        exclude: /node_modules/,
-        include: __dirname
+            }]
+          ]
+        })],
+        include: [
+          path.resolve(__dirname, 'src')
+        ]
       },
       {
         test: /\.css$/,
@@ -65,8 +72,9 @@ module.exports = {
           'css?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
           'postcss'
         ),
-        exclude: /node_modules/,
-        include: __dirname
+        include: [
+          path.resolve(__dirname, 'src')
+        ]
       }
     ]
   },

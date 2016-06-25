@@ -1,34 +1,36 @@
-import defaultProps from './defaultProps';
-import renderAppToString from './renderAppToString';
 import { createMiddleware } from 'provide-page';
+import renderToString from './renderAppToString';
+import defaultProps from './defaultProps';
 
-const min = process.env.MIN_EXT || '';
-const { providedState } = defaultProps;
-const defaultThemeFiles = providedState.themeFiles;
-const themes = require(`./themes/index${min}`).default;
 const middleware = createMiddleware({
-  defaultProps: {
-    ...defaultProps,
-    providedState: {
-      ...providedState,
-      themes
+  renderToString,
+  defaultProps,
+  getStates: states => {
+    const pageState = states.page;
+    const themeState = states.theme;
+
+    if (!themeState) {
+      return states;
     }
-  },
-  getProvidedState: mergedStates => ({
-    ...mergedStates,
-    jsFiles: [
-      (mergedStates.themeFiles || defaultThemeFiles).jsFile,
-      ...(mergedStates.jsFiles || [])
-    ],
-    cssFiles: [
-      (mergedStates.themeFiles || defaultThemeFiles).cssFile,
-      ...(mergedStates.cssFiles || [])
-    ]
-  }),
-  getClientState: {
-    themes: false
-  },
-  renderToString: renderAppToString
+
+    return {
+      ...states,
+
+      page: {
+        ...pageState,
+
+        jsFiles: [
+          themeState.themeFiles.jsFile,
+          ...(pageState.jsFiles || [])
+        ],
+
+        cssFiles: [
+          themeState.themeFiles.cssFile,
+          ...(pageState.cssFiles || [])
+        ]
+      }
+    };
+  }
 });
 
 export default middleware;

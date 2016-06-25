@@ -1,28 +1,82 @@
 @import url(https://fonts.googleapis.com/css?family=Droid+Sans);
+
+@value globalColor: #000000;
+@value globalBackgroundColor: #ddeeff;
+@value linkColor: #001177;
+@value linkHoverColor: #112299;
+@value buttonColor: #001177;
+@value buttonHoverColor: #112299;
+@value buttonBackgroundColor: #ccddee;
+@value buttonHoverBackgroundColor: #bbccdd;
+@value inputColor: #ddeeff;
+@value inputBackgroundColor: #001177;
+@value inputFocusBackgroundColor: #112299;
+@value inputFocusBorderColor: #bbccdd;
+@value errorColor: #771100;
+@value errorBackgroundColor: #001177;
+
 html, body, :global(#root) {
-  color: #000000;
+  color: globalColor;
   height: 100%;
   margin: 0px;
   box-sizing: border-box;
   font-family: Droid Sans;
-  background-color: #ddeeff;
+  background-color: globalBackgroundColor;
 }
 *, *:before, *:after {
   box-sizing: inherit;
 }
-a, button {
-  color: #001177;
+input {
+  outline: none;
+}
+a {
+  color: linkColor;
   cursor: pointer;
   outline: none;
   text-decoration: none;
 }
-a, button:hover {
-  color: #112299;
+a:hover {
+  color: linkHoverColor;
 }
-.App {
+button {
+  color: buttonColor;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+}
+button:hover {
+  color: buttonHoverColor;
+}
+.NotFound {
+  text-align: center;
+}
+.FlatButton {
+  border: 0;
+  padding: 8px;
+  background-color: buttonBackgroundColor;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.FlatButton:hover {
+  background-color: buttonHoverBackgroundColor;
+}
+.Input {
+  border: 0;
+  padding: 8px;
+  font-size: inherit;
+  color: inputColor;
+  background-color: inputBackgroundColor;
+  max-width: 100%;
+}
+.Input:focus {
+  border-color: inputFocusBorderColor;
+  background-color: inputFocusBackgroundColor;
+}
+.Lumbur {
   height: 100%;
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   align-items: stretch;
   justify-content: space-around;
 }
@@ -30,149 +84,89 @@ a, button:hover {
   width: 100%;
   text-align: left;
 }
-.HomeIcon {
-  display: none;
-}
-@media (max-width: 640px) {
-  .HomeIcon {
-    position: relative;
-    display: inline-block;
-    width: 35px;
-    height: 35px;
-    vertical-align: top;
-    background-color: #ccddee;
-  }
-  .HomeIcon:hover {
-    background-color: #bbccdd;
-    cursor: pointer;
-  }
-  .HomeIcon:after {
-    content: "";
-    position: absolute;
-    top: 5px;
-    bottom: 5px;
-    left: 5px;
-    right: 5px;
-    border-top: 15px double #001177;
-    border-bottom: 5px solid #001177;
-  }
-  .HomeIcon:hover:after {
-    border-color: #112299;
-  }
-}
-.Welcome {
+.UserWelcome {
   display: inline-block;
+}
+.UserWelcomeMessage {
+  display: inline-block;
+  padding: 8px 16px;
+}
+.LogInLink {
+  composes: FlatButton;
+}
+.UserLogIn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.UserNameInput {
+  composes: Input;
+  width: 200px;
+}
+.UserPasswordInput {
+  composes: Input;
+  width: 200px;
+}
+.LogInOrSignUp {
+  display: flex;
+  align-items: stretch;
+  width: 200px;
+}
+.LogInButton {
+  composes: FlatButton;
+  flex-grow: 1;
+}
+.SignUpButton {
+  composes: FlatButton;
+  flex-grow: 1;
+}
+.LogInStatus {
+  width: 200px;
+  height: 36px;
   padding: 8px;
+  text-align: center;
+}
+.LoggingIn {
+  composes: LogInStatus;
+}
+.SigningUp {
+  composes: LogInStatus;
+}
+.UserError {
+  composes: LogInStatus;
+  color: errorColor;
+  background-color: errorBackgroundColor;
+}
+.UserError:empty {
+  background-color: transparent;
+}
+.LogOut {
+  display: inline-block;
+}
+.LogOutButton {
+  composes: FlatButton;
 }
 .ThemeSelector {
   float: right;
 }
 .ThemeName {
-  border: 0;
-  padding: 8px;
-  background-color: #ccddee;
-  font-size: inherit;
-  color: inherit;
-  cursor: pointer;
+  composes: FlatButton;
 }
-.ThemeName:hover {
-  background-color: #bbccdd;
+.Body {
+  display: flex;
+  padding: 16px;
+  overflow: auto;
+  flex-grow: 1;
+  flex-direction: column;
 }
-.Entries {
+.Contents {
   flex: 2;
   display: flex;
   flex-flow: row wrap;
 }
-.EntryList {
-  width: 240px;
-  overflow: auto;
-}
-@media (max-width: 640px) {
-  .EntryListHasSelected {
-    width: 0;
-  }
-}
-.EntryName {
-  display: block;
-  padding: 8px;
-}
-.EntryName:hover {
-  background-color: #ffffff;
-}
-.EntryNameSelected {
-  background-color: #ffffff;
-}
-.EntryContents {
-  display: flex;
-  padding: 16px;
-  overflow: auto;
-  flex-grow: 1;
-  flex-direction: column;
-  background-color: #ffffff;
-}
-.EntryCreator {
-  display: flex;
-  padding: 16px;
-  overflow: auto;
-  flex-grow: 1;
-  flex-direction: column;
-  background-color: #ffffff;
-}
-.EntryCreatorInput {
-  flex: 1;
-  color: #000000;
-  border: 0px;
-  padding: 0px;
-  outline: none;
-  overflow: auto;
-  font-size: 14px;
-  background-color: #ffffff;
-}
-.EntryEditor {
-  display: flex;
-  padding: 16px;
-  overflow: auto;
-  flex-grow: 1;
-  flex-direction: column;
-  background-color: #ffffff;
-}
-.EntryEditorInput {
-  flex: 1;
-  color: #000000;
-  border: 0px;
-  padding: 0px;
-  outline: none;
-  overflow: auto;
-  font-size: 14px;
-  background-color: #ffffff;
-}
-.SaveButton {
-  color: #eeffdd;
-  border: 0px;
-  padding: 8px;
-  font-size: 14px;
-  min-height: 34px;
-  margin-top: 16px;
-  text-align: center;
-  text-transform: uppercase;
-  background-color: #001177;
-}
-.SaveButton:hover {
-  color: #ddeecc;
-  background-color: #112299;
-}
-.EditButton {
-  color: #eeffdd;
-  border: 0px;
-  padding: 8px;
-  font-size: 14px;
-  min-height: 34px;
-  margin-top: 16px;
-  text-align: center;
-  text-transform: uppercase;
-  background-color: #001177;
-}
-.EditButton:hover {
-  color: #ddeecc;
-  background-color: #112299;
+.UserProfile {
+  composes: Contents;
 }

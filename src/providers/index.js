@@ -1,9 +1,4 @@
-import theme from 'provide-theme';
-import page from 'provide-page';
-import entries from './entries';
-
-export default {
-  theme,
-  page,
-  entries
-};
+export idGen from './idGen';
+export page from './page';
+export theme from './theme';
+export user from './user';

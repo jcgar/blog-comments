@@ -7,9 +7,12 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    Bloggur: './src/renderApp.js',
-    DarkTheme: './src/themes/dark/index.js',
-    LightTheme: './src/themes/light/index.js'
+    Lumbur: [
+      'babel-polyfill',
+      './src/renderApp.js'
+    ],
+    DarkTheme: './src/themes/dark/dark.js',
+    LightTheme: './src/themes/light/light.js'
   },
   resolve: {
     extensions: ['', '.js']
@@ -44,11 +47,10 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loaders: [
-          'babel'
-        ],
-        exclude: /node_modules/,
-        include: __dirname
+        loaders: ['babel'],
+        include: [
+          path.resolve(__dirname, 'src')
+        ]
       },
       {
         test: /\.css$/,
@@ -57,8 +59,9 @@ module.exports = {
           'css?minimize&modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
           'postcss'
         ),
-        exclude: /node_modules/,
-        include: __dirname
+        include: [
+          path.resolve(__dirname, 'src')
+        ]
       }
     ]
   },
