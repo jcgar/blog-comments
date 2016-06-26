@@ -1,13 +1,17 @@
 import React, { PropTypes } from 'react';
 import Markdown from 'react-remarkable';
+import { Link } from 'react-router';
 
 const Entry = ({
   classes,
+  userName,
   entryId,
   entrySlug,
   entryName,
   entryContents,
   entryDeleted,
+  entryByUserId,
+  requestSession,
   setStatusCode,
   setDocumentTitle
 }) => {
@@ -34,17 +38,32 @@ const Entry = ({
   return (
     <div className={classes.Entry}>
       <Markdown source={entryContents} />
+
+      {entryByUserId === requestSession.userId
+        ? (
+          <Link
+            className={classes.EditButton}
+            to={`/${userName}/edit/${entryId}/${entrySlug}`}
+          >
+            Edit
+          </Link>
+        )
+        : undefined
+      }
     </div>
   );
 };
 
 Entry.propTypes = {
   classes: PropTypes.object.isRequired,
+  userName: PropTypes.string.isRequired,
   entryId: PropTypes.string.isRequired,
   entrySlug: PropTypes.string.isRequired,
   entryName: PropTypes.string.isRequired,
   entryContents: PropTypes.string.isRequired,
   entryDeleted: PropTypes.bool.isRequired,
+  entryByUserId: PropTypes.string.isRequired,
+  requestSession: PropTypes.object.isRequired,
   setStatusCode: PropTypes.func.isRequired,
   setDocumentTitle: PropTypes.func.isRequired
 };
