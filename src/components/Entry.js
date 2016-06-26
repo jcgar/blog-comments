@@ -2,19 +2,13 @@ import React, { PropTypes } from 'react';
 import Markdown from 'react-remarkable';
 import { Link } from 'react-router';
 
-const Entry = ({
-  classes,
-  userName,
-  entryId,
-  entrySlug,
+export function getEntryContents({
   entryName,
   entryContents,
   entryDeleted,
-  entryByUserId,
-  requestSession,
   setStatusCode,
   setDocumentTitle
-}) => {
+}) {
   if (entryDeleted || !entryName) {
     setStatusCode(404);
     setDocumentTitle('404 - Entry not found!');
@@ -35,24 +29,44 @@ const Entry = ({
     }
   }
 
-  return (
-    <div className={classes.Entry}>
-      <Markdown source={entryContents} />
-
-      {entryByUserId === requestSession.userId
-        ? (
-          <Link
-            className={classes.EditButton}
-            to={`/${userName}/edit/${entryId}/${entrySlug}`}
-          >
-            Edit
-          </Link>
-        )
-        : undefined
-      }
-    </div>
-  );
+  return entryContents;
 };
+
+const Entry = ({
+  classes,
+  userName,
+  entryId,
+  entrySlug,
+  entryName,
+  entryContents,
+  entryDeleted,
+  entryByUserId,
+  requestSession,
+  setStatusCode,
+  setDocumentTitle
+}) => (
+  <div className={classes.Entry}>
+    <Markdown source={getEntryContents({
+      entryName,
+      entryContents,
+      entryDeleted,
+      setStatusCode,
+      setDocumentTitle
+    })} />
+
+    {entryByUserId === requestSession.userId
+      ? (
+        <Link
+          className={classes.EditButton}
+          to={`/${userName}/edit/${entryId}/${entrySlug}`}
+        >
+          Edit
+        </Link>
+      )
+      : undefined
+    }
+  </div>
+);
 
 Entry.propTypes = {
   classes: PropTypes.object.isRequired,
