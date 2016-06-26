@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import UserEntryList from './UserEntryList';
 
 const UserProfile = ({
   classes,
@@ -19,7 +20,7 @@ const UserProfile = ({
     if (userId) {
       setStatusCode(null);
       contents = (
-        <h2>{userName}'s userId is {userId}.</h2>
+        <UserEntryList userId={userId} />
       );
     } else {
       setStatusCode(404);
@@ -33,7 +34,7 @@ const UserProfile = ({
     if (userId) {
       setStatusCode(null);
       contents = (
-        <h2>Your userId is {userId}.</h2>
+        <UserEntryList userId={userId} />
       );
     } else {
       setStatusCode(null);
