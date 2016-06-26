@@ -5,6 +5,8 @@ import * as components from './index';
 
 const {
   Bloggur,
+  EntryCreator,
+  Entry,
   Home,
   UserLogIn,
   UserProfile,
@@ -19,6 +21,8 @@ const App = () => (
       <IndexRoute component={Home} />
 
       <Route component={UserProfile}>
+        <Route path="create" component={EntryCreator} />
+
         <Route path=":userName" />
       </Route>
     </Route>

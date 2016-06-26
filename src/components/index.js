@@ -1,6 +1,7 @@
 export Header from './Header';
 export Home from './Home';
 export Bloggur from './Bloggur';
+export EntryCreator from './EntryCreator';
 export EntryLink from './EntryLink';
 export NotFound from './NotFound';
 export ThemeSelector from './ThemeSelector';

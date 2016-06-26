@@ -1,7 +1,8 @@
 import provideIdGen from 'provide-id-gen';
 
 const idGen = provideIdGen([
-  'user'
+  'user',
+  'entry'
 ]);
 
 idGen.isGlobal = true;
