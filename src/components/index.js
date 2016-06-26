@@ -5,6 +5,7 @@ export Entry from './Entry';
 export EntryCreator from './EntryCreator';
 export EntryEditor from './EntryEditor';
 export EntryLink from './EntryLink';
+export LatestEntryList from './LatestEntryList';
 export NotFound from './NotFound';
 export ThemeSelector from './ThemeSelector';
 export UserEntryList from './UserEntryList';

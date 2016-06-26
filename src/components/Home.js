@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
+import LatestEntryList from './LatestEntryList';
 
 const Home = ({ classes }) => (
   <div className={classes.Home}>
-    Nothing to see here... yet!
+    <LatestEntryList />
   </div>
 );
 
