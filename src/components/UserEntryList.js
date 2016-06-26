@@ -5,6 +5,8 @@ import { Link } from 'react-router';
 const UserEntryList = ({
   classes,
   setDocumentTitle,
+  location,
+  entryId,
   userId,
   userName,
   query,
@@ -25,6 +27,7 @@ const UserEntryList = ({
             { ...entryState }
             userName={userName}
             key={`entryId=${entryState.entryId}`}
+            selected={entryState.entryId === entryId}
           />
         ))
         : (
@@ -35,7 +38,10 @@ const UserEntryList = ({
       }
 
       <Link
-        className={classes.CreateLink}
+        className={location.pathname === '/create'
+          ? classes.CreateLinkSelected
+          : classes.CreateLink
+        }
         to="/create"
       >
         Create blog entry
@@ -47,6 +53,8 @@ const UserEntryList = ({
 UserEntryList.propTypes = {
   classes: PropTypes.object.isRequired,
   setDocumentTitle: PropTypes.func.isRequired,
+  location: PropTypes.object.isRequired,
+  entryId: PropTypes.string,
   userId: PropTypes.string,
   userName: PropTypes.string,
   query: PropTypes.any,

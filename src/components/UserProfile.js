@@ -5,7 +5,9 @@ const UserProfile = ({
   classes,
   setStatusCode,
   requestSession,
+  location,
   userName,
+  entryId,
   query,
   queryOptions,
   result,
@@ -20,7 +22,7 @@ const UserProfile = ({
     if (userId) {
       setStatusCode(null);
       contents = (
-        <UserEntryList userId={userId} />
+        <UserEntryList location={location} userId={userId} entryId={entryId} />
       );
     } else {
       setStatusCode(404);
@@ -34,7 +36,7 @@ const UserProfile = ({
     if (userId) {
       setStatusCode(null);
       contents = (
-        <UserEntryList userId={userId} />
+        <UserEntryList location={location} userId={userId} entryId={entryId} />
       );
     } else {
       setStatusCode(null);
@@ -56,7 +58,9 @@ UserProfile.propTypes = {
   classes: PropTypes.object.isRequired,
   setStatusCode: PropTypes.func.isRequired,
   requestSession: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
   userName: PropTypes.string,
+  entryId: PropTypes.string,
   query: PropTypes.any.isRequired,
   queryOptions: PropTypes.object.isRequired,
   result: PropTypes.any,
