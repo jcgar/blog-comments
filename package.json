@@ -72,6 +72,7 @@
     "react": "^0.14.0 || ^15.0.0-0",
     "react-dom": "^0.14.0 || ^15.0.0-0",
     "react-redux-provide": "^6.0.0-0",
+    "react-remarkable": "^1.1.1",
     "react-router": "^2.3.0",
     "redux-replicate-fs": "^2.0.0-0",
     "redux-replicate-localforage": "^2.0.0-0",

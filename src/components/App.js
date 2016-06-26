@@ -23,7 +23,11 @@ const App = () => (
       <Route component={UserProfile}>
         <Route path="create" component={EntryCreator} />
 
-        <Route path=":userName" />
+        <Route path=":userName">
+          <Route path=":entryId" component={Entry}>
+            <Route path=":entrySlug" />
+          </Route>
+        </Route>
       </Route>
     </Route>
 

@@ -8,6 +8,7 @@ const EntryCreator = ({
   entryError,
   createEntry,
   genEntryId,
+  pushRoute,
   replaceRoute,
   setDocumentTitle,
   formId,
@@ -20,7 +21,9 @@ const EntryCreator = ({
 
     formData.entryByUserId = requestSession.userId;
 
-    createEntry(formData, genEntryId);
+    createEntry(formData, genEntryId, ({ entryId, entrySlug }) => {
+      pushRoute(`/${requestSession.userName}/${entryId}/${entrySlug}`);
+    });
   };
 
   setDocumentTitle('New Blog Entry');
@@ -72,6 +75,7 @@ EntryCreator.propTypes = {
   entryError: PropTypes.string.isRequired,
   createEntry: PropTypes.func.isRequired,
   genEntryId: PropTypes.func.isRequired,
+  pushRoute: PropTypes.func.isRequired,
   replaceRoute: PropTypes.func.isRequired,
   setDocumentTitle: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
