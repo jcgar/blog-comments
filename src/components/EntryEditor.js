@@ -7,6 +7,7 @@ const EntryEditor = ({
   userName,
   entryId,
   entryName,
+  entrySlug,
   entryContents,
   entryByUserId,
   entryDeleted,
@@ -38,7 +39,9 @@ const EntryEditor = ({
         replaceRoute(`/${userName}/${entryId}/${entrySlug}`);
       });
     } else {
-      deleteEntry(() => pushRoute(`/`));
+      deleteEntry(() => {
+        pushRoute(`/${userName}/${entryId}/${entrySlug}`);
+      });
     }
   };
 
@@ -87,6 +90,7 @@ EntryEditor.propTypes = {
   userName: PropTypes.string.isRequired,
   entryId: PropTypes.string.isRequired,
   entryName: PropTypes.string.isRequired,
+  entrySlug: PropTypes.string.isRequired,
   entryContents: PropTypes.string.isRequired,
   entryByUserId: PropTypes.string.isRequired,
   entryDeleted: PropTypes.bool.isRequired,
