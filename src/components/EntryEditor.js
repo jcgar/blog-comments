@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import { Form } from 'provide-page';
 import { getEntryContents } from './Entry';
 
+const cantEditMessage = `You don't have permission to edit this!`;
+
 const EntryEditor = ({
   classes,
   userName,
@@ -12,12 +14,13 @@ const EntryEditor = ({
   entryByUserId,
   entryDeleted,
   entryError,
-  setEntryError,
   updateEntry,
   deleteEntry,
   replaceRoute,
   pushRoute,
   requestSession,
+  requestError,
+  setRequestError,
   setStatusCode,
   setDocumentTitle,
   formId,
@@ -30,7 +33,7 @@ const EntryEditor = ({
     }
 
     if (!canEdit) {
-      setEntryError(`You don't have permission to do that!`);
+      setRequestError(cantEditMessage);
       return;
     }
 
@@ -44,6 +47,10 @@ const EntryEditor = ({
       });
     }
   };
+
+  if (!canEdit) {
+    entryError = cantEditMessage;
+  }
 
   return (
     <Form
@@ -73,10 +80,10 @@ const EntryEditor = ({
         : undefined
       }
 
-      {entryError
+      {requestError || entryError
         ? (
           <div className={classes.EntryError}>
-            {entryError}
+            {requestError || entryError}
           </div>
         )
         : undefined
@@ -95,12 +102,13 @@ EntryEditor.propTypes = {
   entryByUserId: PropTypes.string.isRequired,
   entryDeleted: PropTypes.bool.isRequired,
   entryError: PropTypes.string.isRequired,
-  setEntryError: PropTypes.func.isRequired,
   updateEntry: PropTypes.func.isRequired,
   deleteEntry: PropTypes.func.isRequired,
   replaceRoute: PropTypes.func.isRequired,
   pushRoute: PropTypes.func.isRequired,
   requestSession: PropTypes.object.isRequired,
+  requestError: PropTypes.string.isRequired,
+  setRequestError: PropTypes.func.isRequired,
   setStatusCode: PropTypes.func.isRequired,
   setDocumentTitle: PropTypes.func.isRequired,
   formId: PropTypes.string.isRequired,
