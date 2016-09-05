@@ -16,7 +16,7 @@ const LatestEntryList = ({
     {result && result.length
       ? result.map(entryState => (
         <EntryLink
-          { ...entryState }
+          {...entryState}
           userId={entryState.entryByUserId}
           key={`entryId=${entryState.entryId}`}
           selected={false}

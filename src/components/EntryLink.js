@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import { routes } from './App';
 
 const EntryLink = ({
   classes,
@@ -11,7 +12,7 @@ const EntryLink = ({
 }) => (
   <Link
     className={selected ? classes.EntryLinkSelected : classes.EntryLink}
-    to={`/${userName}/${entryId}/${entrySlug}`}
+    to={routes.blogDetail(userName,entryId,entrySlug)}
   >
     {entryName}
   </Link>

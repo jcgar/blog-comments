@@ -5,7 +5,7 @@ import { pushReplicator } from 'react-redux-provide';
 import fs from 'redux-replicate-fs';
 import App from './components/App';
 import defaultProps from './defaultProps';
-import bcrypt from 'bcrypt';
+import bcrypt from 'react-native-bcrypt';
 
 const { providers } = defaultProps;
 const min = process.env.MIN_EXT || '';

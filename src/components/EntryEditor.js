@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Form } from 'provide-page';
 import { getEntryContents } from './Entry';
+import { routes } from './App';
 
 const cantEditMessage = `You don't have permission to edit this!`;
 
@@ -39,11 +40,11 @@ const EntryEditor = ({
 
     if (formData.entryContents) {
       updateEntry(formData, ({ entrySlug }) => {
-        replaceRoute(`/${userName}/${entryId}/${entrySlug}`);
+        replaceRoute(routes.blogDetail(userName,entryId,entrySlug));
       });
     } else {
       deleteEntry(() => {
-        pushRoute(`/${userName}/${entryId}/${entrySlug}`);
+        pushRoute(routes.blogDetail(userName,entryId,entrySlug));
       });
     }
   };
@@ -73,9 +74,9 @@ const EntryEditor = ({
 
       {canEdit
         ? (
-          <button className={classes.SaveButton} type="submit">
+        <button className={classes.SaveButton} type="submit">
             Save
-          </button>
+        </button>
         )
         : undefined
       }

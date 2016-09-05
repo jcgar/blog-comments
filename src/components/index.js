@@ -12,3 +12,8 @@ export UserEntryList from './UserEntryList';
 export UserLogIn from './UserLogIn';
 export UserProfile from './UserProfile';
 export UserWelcome from './UserWelcome';
+
+export Comment from './Comment';
+export CommentCreator from './CommentCreator';
+export EntryViewer from './EntryViewer';
+export LatestCommentList from './LatestCommentList';

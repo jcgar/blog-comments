@@ -3,7 +3,7 @@ import Header from './Header';
 
 const Bloggur = ({ classes, children }) => (
   <div className={classes.Bloggur}>
-    <Header/>
+    <Header />
 
     <div className={classes.Body}>
       {children}
@@ -12,7 +12,8 @@ const Bloggur = ({ classes, children }) => (
 );
 
 Bloggur.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  children: PropTypes.object.isRequired,
 };
 
 export default Bloggur;

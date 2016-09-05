@@ -1,37 +1,38 @@
 import React, { PropTypes } from 'react';
 import { Form } from 'provide-page';
-import { routes  } from './App';
+import { components, routes } from './App';
 
-const EntryCreator = ({
+const CommentCreator = ({
   classes,
   requestSession,
-  entryCreationTime,
-  entryError,
-  createEntry,
-  genEntryId,
+  commentError,
+  createComment,
+  genCommentId,
   pushRoute,
   replaceRoute,
-  setDocumentTitle,
+  entryId,
+  entrySlug,
   formId,
-  formData
+  formData,
+  defaultValue,
 }) => {
   const onSubmit = (event, formData) => {
-    if (!formData || !formData.entryContents) {
+    if (!formData || !formData.commentContents) {
       return;
     }
 
-    formData.entryByUserId = requestSession.userId;
+    formData.commentByUserId = requestSession.userId;
+    formData.commentByEntryId = entryId;
 
-    createEntry(formData, genEntryId, ({ entryId, entrySlug }) => {
+    createComment(formData, genCommentId, () => {
       pushRoute(routes.blogDetail(requestSession.userName, entryId, entrySlug));
     });
   };
 
-  setDocumentTitle('New Blog Entry');
-
   if (!requestSession.userId) {
     replaceRoute(routes.login());
   }
+
 
   return (
     <Form
@@ -42,25 +43,21 @@ const EntryCreator = ({
     >
       <textarea
         className={classes.EntryCreatorInput}
-        name="entryContents"
-        defaultValue={[
-          `# New Blog Entry`,
-          ``,
-          `### ${new Date(entryCreationTime).toString()}`,
-          ``,
-          `Markdown is supported.`
-        ].join('\n')}
+        name="commentContents"
+        defaultValue={defaultValue}
         autoFocus
       />
 
+      <p> New Comment </p>
+
       <button className={classes.SaveButton} type="submit">
-        Save
+        Send
       </button>
 
-      {entryError
+      {commentError
         ? (
         <div className={classes.EntryError}>
-            {entryError}
+            {commentError}
         </div>
         )
         : undefined
@@ -69,22 +66,26 @@ const EntryCreator = ({
   );
 };
 
-EntryCreator.propTypes = {
+CommentCreator.propTypes = {
   classes: PropTypes.object.isRequired,
   requestSession: PropTypes.object.isRequired,
-  entryCreationTime: PropTypes.number.isRequired,
-  entryError: PropTypes.string.isRequired,
-  createEntry: PropTypes.func.isRequired,
-  genEntryId: PropTypes.func.isRequired,
+  commentError: PropTypes.string.isRequired,
+  createComment: PropTypes.func.isRequired,
+  genCommentId: PropTypes.func.isRequired,
   pushRoute: PropTypes.func.isRequired,
   replaceRoute: PropTypes.func.isRequired,
-  setDocumentTitle: PropTypes.func.isRequired,
+  entryId: PropTypes.string.isRequired,
+  entrySlug: PropTypes.string.isRequired,
   formId: PropTypes.string.isRequired,
-  formData: PropTypes.object
+  formData: PropTypes.object,
+  defaultValue: PropTypes.string.isRequired,
 };
 
-EntryCreator.defaultProps = {
-  formId: 'EntryCreator'
-};
+CommentCreator.defaultProps = {
+  formId: 'CommentCreator',
+  defaultValue:   [
+    `default comment`,
+  ].join('\n'),
 
-export default EntryCreator;
+};
+export default CommentCreator;

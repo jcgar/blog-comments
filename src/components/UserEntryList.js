@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
-import EntryLink from './EntryLink';
 import { Link } from 'react-router';
+import EntryLink from './EntryLink';
+import { routes  } from './App';
 
 const UserEntryList = ({
   classes,
@@ -24,7 +25,7 @@ const UserEntryList = ({
       {result && result.length
         ? result.map(entryState => (
           <EntryLink
-            { ...entryState }
+            {...entryState}
             userName={userName}
             key={`entryId=${entryState.entryId}`}
             selected={entryState.entryId === entryId}
@@ -38,11 +39,11 @@ const UserEntryList = ({
       }
 
       <Link
-        className={location.pathname === '/create'
+        className={location.pathname === routes.blogNew()
           ? classes.CreateLinkSelected
           : classes.CreateLink
         }
-        to="/create"
+        to={routes.blogNew()}
       >
         Create blog entry
       </Link>

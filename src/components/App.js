@@ -11,17 +11,33 @@ const {
   Home,
   UserLogIn,
   UserProfile,
-  NotFound
+  NotFound,
+
+  LatestCommentList,
+  Comment,
+  CommentCreator,
+  EntryViewer,
+
 } = components;
 
-const App = () => (
+const routes = {
+  login: () => "/login",
+  blogNew: () => "/blog/create",
+  blogDetail: (userName,entryId,entrySlug) => `/blog/${userName}/${entryId}/${entrySlug}`,
+  blogEdit: (entryId,entrySlug) => `/blog/:userName/edit/${entryId}/${entrySlug}`,
+  blogUserDetail: (userName) => `/blog/${userName}`,
+}
+
+
+
+const routeElements = (
   <Router createElement={paramsToProps}>
     <Route path="/login" component={UserLogIn} />
 
     <Route path="/" component={Bloggur}>
       <IndexRoute component={Home} />
 
-      <Route component={UserProfile}>
+      <Route path="blog" component={UserProfile}>
         <Route path="create" component={EntryCreator} />
 
         <Route path=":userName">
@@ -29,7 +45,7 @@ const App = () => (
             <Route path=":entrySlug" />
           </Route>
 
-          <Route path=":entryId" component={Entry}>
+          <Route path=":entryId" component={EntryViewer}>
             <Route path=":entrySlug" />
           </Route>
         </Route>
@@ -40,5 +56,6 @@ const App = () => (
   </Router>
 );
 
+const App = () => (routeElements);
 export default App;
-export { components };
+export { components, routes, routeElements };

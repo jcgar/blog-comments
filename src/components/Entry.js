@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Markdown from 'react-remarkable';
 import { Link } from 'react-router';
+import { routes } from './App';
 
 export function getEntryContents({
   entryName,
@@ -46,22 +47,24 @@ const Entry = ({
   setDocumentTitle
 }) => (
   <div className={classes.Entry}>
-    <Markdown source={getEntryContents({
-      entryName,
-      entryContents,
-      entryDeleted,
-      setStatusCode,
-      setDocumentTitle
-    })} />
+    <Markdown
+      source={getEntryContents({
+        entryName,
+        entryContents,
+        entryDeleted,
+        setStatusCode,
+        setDocumentTitle
+      })}
+    />
 
     {entryByUserId === requestSession.userId
       ? (
-        <Link
-          className={classes.EditButton}
-          to={`/${userName}/edit/${entryId}/${entrySlug}`}
-        >
+      <Link
+        className={classes.EditButton}
+        to={routes.blogEdit(requestSession.userName,entryId,entrySlug)}
+      >
           Edit
-        </Link>
+      </Link>
       )
       : undefined
     }

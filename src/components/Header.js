@@ -7,7 +7,7 @@ const Header = ({ classes, requestSession }) => (
   <div className={classes.Header}>
     <Link className={classes.HomeIcon} to="/" />
     <UserWelcome userId={requestSession.userId} />
-    <ThemeSelector/>
+    <ThemeSelector />
   </div>
 );
 

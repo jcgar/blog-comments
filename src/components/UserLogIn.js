@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Form } from 'provide-page';
+import { routes } from './App';
 
 const UserLogIn = ({
   classes,
@@ -16,7 +17,7 @@ const UserLogIn = ({
   const logIn = (event, formData) => {
     const updateUserSession = ({ userId, userName }) => {
       updateSession({ userId, userName });
-      replaceRoute(`/${userName}`);
+      replaceRoute(routes.blogUserDetail(userName));
     };
 
     if (isSigningUp(formData)) {

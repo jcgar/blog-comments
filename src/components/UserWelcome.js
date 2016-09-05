@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { Form } from 'provide-page';
+import { routes } from './App';
 
 const UserWelcome = ({ classes, userId, userName, destroySession }) => {
   const logOut = () => destroySession();
 
   const UserLink = (
-    <Link className={classes.UserLink} to={`/${userName}`}>
+    <Link className={classes.UserLink} to={routes.blogUserDetail(userName)}>
       {userName}
     </Link>
   );
@@ -36,7 +37,7 @@ const UserWelcome = ({ classes, userId, userName, destroySession }) => {
           Welcome!
         </div>
 
-        <Link className={classes.LogInLink} to="/login">
+        <Link className={classes.LogInLink} to={routes.login()}>
           Log in
         </Link>
       </div>
